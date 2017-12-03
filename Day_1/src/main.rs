@@ -10,7 +10,7 @@ fn main() {
         .about("Solution to Advent of Code 2017 - Day 1")
         .args_from_usage(
             "-f                  'Read input as file instead of as string'
-            -g                   'Use Gold star solution instead of Silver'
+            -x                   'Use part two solution'
             <INPUT>              'Sets the input file to use'")
         .get_matches();
 
@@ -26,12 +26,45 @@ fn main() {
         },
     };
 
-    match matches.occurrences_of("g") {
+    let total = match matches.occurrences_of("x") {
         1 => {
-            println!("GOLD STAR SOLUTION: {}",0);
+            part_two_solution(&captcha)
         },
         _ => {
-            println!("SILVER STAR SOLUTION: {}",0);
+            part_one_solution(&captcha)
+        }
+    };
+
+    println!("{}",total);
+}
+
+
+fn part_one_solution(captcha: &str) -> u64 {
+    let mut total : u64 = 0;
+    let mut previous_char = captcha.chars().last().unwrap();
+    for c in captcha.chars() {
+        if c == previous_char {
+            total = total + c.to_digit(10).unwrap() as u64;
+        }
+        previous_char = c;
+    }
+    total
+}
+
+
+fn part_two_solution(captcha: &str) -> u64 {
+    let mut total : u64 = 0;
+
+    let half_idx = captcha.chars().count()/2;
+    let first_half = &captcha[0..half_idx];
+    let second_half = &captcha[half_idx..captcha.chars().count()];
+
+    for pair in first_half.chars().zip(second_half.chars()) {
+        let (f, s) = pair;
+        if f == s {
+            total = total + 2*f.to_digit(10).unwrap() as u64;
         }
     }
+
+    total
 }
