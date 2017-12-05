@@ -1,0 +1,6 @@
+[package]
+name = "aoch"
+version = "0.1.0"
+authors = ["Mark E. McDermott <mark.elias.mcdermott@gmail.com>"]
+
+[dependencies]
