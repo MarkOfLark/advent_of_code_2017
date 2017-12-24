@@ -1,0 +1,8 @@
+[package]
+name = "day_3"
+version = "0.1.0"
+authors = ["Mark E. McDermott <mark.elias.mcdermott@gmail.com>"]
+
+[dependencies]
+aoch = { path = "../aoch" }
+integer-sqrt = "0.1.0"

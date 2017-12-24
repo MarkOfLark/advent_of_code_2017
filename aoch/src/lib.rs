@@ -1,7 +1,7 @@
 use std::env;
 use std::io::prelude::*;
 
-pub fn advent_of_code(p1 : &Fn(&str) -> u64, p2 : &Fn(&str) -> u64) {
+pub fn advent_of_code(p1 : &Fn(&str) -> String, p2 : &Fn(&str) -> String) {
     let args: Vec<_> = env::args().collect();
     if args.len() == 1 {
         println!("Please provide the input or a file name. Optionally provide 1 or 2 to just run one part of the puzzle.");

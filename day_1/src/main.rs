@@ -5,7 +5,7 @@ fn main() {
 }
 
 
-fn part_one_solution(captcha: &str) -> u64 {
+fn part_one_solution(captcha: &str) -> String {
     let mut total : u64 = 0;
     let mut previous_char = captcha.chars().last().unwrap();
     for c in captcha.chars() {
@@ -14,11 +14,11 @@ fn part_one_solution(captcha: &str) -> u64 {
         }
         previous_char = c;
     }
-    total
+    total.to_string()
 }
 
 
-fn part_two_solution(captcha: &str) -> u64 {
+fn part_two_solution(captcha: &str) -> String {
     let mut total : u64 = 0;
 
     let half_idx = captcha.chars().count()/2;
@@ -31,5 +31,5 @@ fn part_two_solution(captcha: &str) -> u64 {
             total = total + 2*f.to_digit(10).unwrap() as u64;
         }
     }
-    total
+    total.to_string()
 }

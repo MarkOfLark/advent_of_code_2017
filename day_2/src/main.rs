@@ -14,17 +14,17 @@ fn parse_spreadsheet_line(line: &str) -> Vec<u64> {
 }
 
 
-fn part_one_solution(spreadsheet: &str) -> u64 {
+fn part_one_solution(spreadsheet: &str) -> String {
     let mut total = 0u64;
     for line in spreadsheet.lines() {
         let cell_values : Vec<u64> = parse_spreadsheet_line(&line);
         total += cell_values.iter().max().expect("no max") - cell_values.iter().min().expect("no min");
     }
-    total
+    total.to_string()
 }
 
 
-fn part_two_solution(spreadsheet: &str) -> u64 {
+fn part_two_solution(spreadsheet: &str) -> String {
     let mut total = 0u64;
     for line in spreadsheet.lines() {
         let mut cell_values : Vec<u64> = parse_spreadsheet_line(&line);
@@ -43,5 +43,5 @@ fn part_two_solution(spreadsheet: &str) -> u64 {
 
         total += find_divisible();
     }
-    total
+    total.to_string()
 }
