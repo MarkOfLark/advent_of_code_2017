@@ -1,13 +1,13 @@
 use std::env;
 use std::io::prelude::*;
 
-pub fn advent_of_code(p1 : &Fn(&str) -> String, p2 : &Fn(&str) -> String) {
+fn get_puzzle_string() -> String {
+    let mut puzzle_string = String::new();
     let args: Vec<_> = env::args().collect();
     if args.len() == 1 {
-        println!("Please provide the input or a file name. Optionally provide 1 or 2 to just run one part of the puzzle.");
+        panic!("Please provide the input or a file name");
     }
     else {
-        let mut puzzle_string = String::new();
         if args.len() > 1 {
             // Try reading as a file. If it fails then assume argument is the input string as is.
             match std::fs::File::open(&args[1]) {
@@ -17,17 +17,19 @@ pub fn advent_of_code(p1 : &Fn(&str) -> String, p2 : &Fn(&str) -> String) {
                 }
             };
         }
-
-        if args.len() > 2 {
-            match args[2].parse::<i32>().unwrap() {
-                1 => println!("{}", p1(&puzzle_string)),
-                2 => println!("{}", p2(&puzzle_string)),
-                _ => (),
-            };
-        }
-        else {
-            println!("Part 1: {}",p1(&puzzle_string));
-            println!("Part 2: {}",p2(&puzzle_string));
-        }
     }
+    puzzle_string
+}
+
+pub fn advent_of_code_combined(pc : &Fn(&str) -> (String, String)) {
+    let puzzle_string = get_puzzle_string();
+    let (p1,p2) = pc(&puzzle_string);
+    println!("Part 1: {}",p1);
+    println!("Part 2: {}",p2);
+}
+
+pub fn advent_of_code(p1 : &Fn(&str) -> String, p2 : &Fn(&str) -> String) {
+    let puzzle_string = get_puzzle_string();
+    println!("Part 1: {}",p1(&puzzle_string));
+    println!("Part 2: {}",p2(&puzzle_string));
 }

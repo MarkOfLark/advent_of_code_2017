@@ -5,7 +5,7 @@ use std::collections::HashMap;
 
 
 fn main() {
-    aoch::advent_of_code(&part_one_solution, &part_two_solution);
+    aoch::advent_of_code_combined(&common_solution);
 }
 
 #[derive(Debug, Eq)]
@@ -85,7 +85,7 @@ impl fmt::Display for Memory {
 }
 
 
-fn common_solution(puzzle_input: &str) -> (u32,u32) {
+fn common_solution(puzzle_input: &str) -> (String,String) {
     let mut memory = Memory::get_memory_initial_state(puzzle_input);
 
     let mut redistribute_count = 0u32;
@@ -93,23 +93,11 @@ fn common_solution(puzzle_input: &str) -> (u32,u32) {
     let mut configurations = HashMap::new();
     loop {
         match configurations.insert(memory.to_string(),redistribute_count) {
-            Some(count) => return (redistribute_count, redistribute_count-count),
+            Some(count) => return (redistribute_count.to_string(), (redistribute_count-count).to_string()),
             None => {
                 redistribute_count += 1;
                 memory.redistribute();
             },
         }
     }
-}
-
-fn part_one_solution(puzzle_input: &str) -> String {
-    let (count,_) = common_solution(puzzle_input);
-    count.to_string()
-}
-
-
-
-fn part_two_solution(puzzle_input: &str) -> String {
-    let (_,distance) = common_solution(puzzle_input);
-    distance.to_string()
 }
